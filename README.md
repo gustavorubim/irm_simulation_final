@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 README for the EVE and EVS Stochastic Simulation System.
 This file provides documentation on how to use the system.
@@ -85,6 +84,39 @@ Located in the `metrics` directory, this module contains:
 Located in the `dashboard` directory, this module contains:
 - `backend.py`: Flask backend API for the dashboard
 - `frontend`: React frontend for the dashboard
+
+### System Architecture Diagram
+
+```mermaid
+graph TD
+   subgraph User Interface
+       UI[Dashboard Frontend (React)]
+   end
+
+   subgraph Backend API
+       API[Backend API (Flask)]
+   end
+
+   subgraph Core Logic
+       ME[Metrics Engine (risk_metrics.py)]
+       SE[Simulation Engine (simulation_engine.py)]
+       IRM[Interest Rate Model (HJM - interest_rate_model.py)]
+       MF[Model Factory (model_factory.py)]
+       SM[Specific Models (specific_models.py)]
+       BM[Base Model (base_model.py)]
+   end
+
+   UI --&gt; API
+   API --&gt; SE
+   API --&gt; ME
+   API --&gt; MF
+
+   SE --&gt; IRM
+   SE --&gt; MF
+
+   MF --&gt; SM
+   SM --&gt; BM
+```
 
 ## Using the Dashboard
 
